@@ -170,10 +170,14 @@ final class SimpleFileServerImpl {
                 writer.println(ResourceBundleHelper.getMessage("loopback.info"));
             }
             if (isAnyLocal) {
-                writer.println(ResourceBundleHelper.getMessage("msg.start.anylocal", root, addr, port));
+                writer.println(ResourceBundleHelper.getMessage("msg.start.anylocal", root, resolveAddressForUrl(addr), port));
             } else {
-                writer.println(ResourceBundleHelper.getMessage("msg.start.other", root, addr, port));
+                writer.println(ResourceBundleHelper.getMessage("msg.start.other", root, resolveAddressForUrl(addr), port));
             }
+        }
+
+        String resolveAddressForUrl(String address) {
+            return address.contains(":") ? "[" + address + "]" : address;
         }
 
         void showUsage(String launcher) {
